@@ -1,6 +1,6 @@
-# Aspen
+# Mint
 
-Aspen is a session saver for Google Chrome. Save sessions for later, including windows, their relaive positions, all tabs in all window and tab groups.
+Mint is a session saver for Google Chrome. Save sessions for later, including windows, their relaive positions, all tabs in all window and tab groups.
 
 ## What it does
 
@@ -27,4 +27,4 @@ Once installed, click the extension icon and then click the "Save Session" butto
 
 ## License
 
-Aspen is licensed under the GNU General Public License version 3.
+Mint is licensed under the GNU General Public License version 3.
