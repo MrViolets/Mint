@@ -1,0 +1,33 @@
+{
+  "name": "__MSG_EXT_NAME__",
+  "description": "__MSG_EXT_DESCRIPTION__",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "default_locale": "en",
+  "minimum_chrome_version": "109",
+  "permissions": ["tabs", "tabGroups", "system.display", "storage", "unlimitedStorage", "offscreen", "favicon"],
+  "icons": {
+    "16": "images/icon16.png",
+    "24": "images/icon24.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "action": {
+    "default_title": "__MSG_EXT_NAME_SHORT__",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "commands": {
+    "save_current_session": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Save current session immediately"
+    }
+  }
+}

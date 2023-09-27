@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <script type="module" src="popup.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="left-detail">
+        <div class="label-large" data-localize="EXT_NAME_SHORT"></div>
+      </div>
+    </header>
+    <div class="group">
+      <div class="button-container">
+        <button id="new_workspace"><span data-localize="MENU_SAVE_SESSION"></span> <span data-accelerator="SAVE_SESSION"></span></button>
+      </div>
+    </div>
+    <div class="group" id="workspace_list"></div>
+    <div class="group">
+      <label for="close_windows_on_save" class="item nav-index">
+        <div class="left-detail">
+          <div class="label" data-localize="MENU_CLOSE_WINDOWS_SAVE"></div>
+        </div>
+        <div class="right-detail">
+          <label class="switch">
+            <input type="checkbox" id="close_windows_on_save" />
+            <span class="track no-transition"></span>
+          </label>
+        </div>
+      </label>
+      <label for="close_windows_on_restore" class="item nav-index">
+        <div class="left-detail">
+          <div class="label" data-localize="MENU_CLOSE_WINDOWS_RESTORE"></div>
+        </div>
+        <div class="right-detail">
+          <label class="switch">
+            <input type="checkbox" id="close_windows_on_restore" />
+            <span class="track no-transition"></span>
+          </label>
+        </div>
+      </label>
+      <label for="clear_sessions_after_use" class="item nav-index">
+        <div class="left-detail">
+          <div class="label" data-localize="MENU_SESSION_EXPIRE"></div>
+        </div>
+        <div class="right-detail">
+          <label class="switch">
+            <input type="checkbox" id="clear_sessions_after_use" />
+            <span class="track no-transition"></span>
+          </label>
+        </div>
+      </label>
+    </div>
+    <div class="group">
+      <div id="rate" class="item nav-index">
+        <div class="left-detail">
+          <div class="label" data-localize="MENU_RATE"></div>
+        </div>
+        <div class="right-detail">
+          <div class="external-link"></div>
+        </div>
+      </div>
+      <div id="donate" class="item nav-index">
+        <div class="left-detail">
+          <div class="label" data-localize="MENU_DONATE"></div>
+        </div>
+        <div class="right-detail">
+          <div class="external-link"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

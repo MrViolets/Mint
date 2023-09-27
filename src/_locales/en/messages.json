@@ -1,0 +1,50 @@
+{
+  "EXT_NAME": {
+    "message": "Mint - Session Saver"
+  },
+  "EXT_NAME_SHORT": {
+    "message": "Mint"
+  },
+  "EXT_DESCRIPTION": {
+    "message": "Save your current session, including windows, their positions, tabs, and tab groups."
+  },
+  "MENU_SAVE_SESSION": {
+    "message": "Save Session"
+  },
+  "MENU_CLOSE_WINDOWS_SAVE": {
+    "message": "Close Windows on Save"
+  },
+  "MENU_CLOSE_WINDOWS_RESTORE": {
+    "message": "Close Windows Before Restore"
+  },
+  "MENU_SESSION_EXPIRE": {
+    "message": "Clear Saved Session after Restore"
+  },
+  "MENU_RATE": {
+    "message": "Rate Mint"
+  },
+  "MENU_DONATE": {
+    "message": "Buy Me a Coffee"
+  },
+  "ACCELERATOR_SAVE_SESSION": {
+    "message": "Ctrl+Shift+S"
+  },
+  "ACCELERATOR_SAVE_SESSION_MAC": {
+    "message": "\u21E7\u2318S"
+  },
+  "ONBOARDING_TITLE": {
+    "message": "Thanks for installing Mint"
+  },
+  "ONBOARDING_STEP_1": {
+    "message": "Open the extension popup by clicking on the icon in the extensions tray."
+  },
+  "ONBOARDING_STEP_2": {
+    "message": "Click the Save Session button or use the shortcut <span class='shortcut' data-accelerator='SAVE_SESSION'></span> at any time to save your current session."
+  },
+  "ONBOARDING_STEP_3": {
+    "message": "Click on your saved session whenever you want to restore it. All windows, tabs and tab groups will be restored exactly how you left them."
+  },
+  "ONBOARDING_DONATE": {
+    "message": "Gifts are entirely optional but they do help me to continue creating free extensions. Thanks for your generosity!"
+  }
+}

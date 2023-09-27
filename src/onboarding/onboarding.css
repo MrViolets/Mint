@@ -1,0 +1,152 @@
+:root {
+  color-scheme: light;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif;
+  --accent: #008A40;
+  --primary: #1f1f1f;
+  --secondary: #7e7e7e;
+  --tertiary: #ededed;
+  --separator: #ebebeb;
+  --background: #ffffff;
+  --active: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --accent: #57E07F;
+    --primary: #e3e3e3;
+    --secondary: #969696;
+    --tertiary: #38393b;
+    --separator: #3f4042;
+    --background: #292a2d;
+    --active: rgba(255, 255, 255, 0.1);
+  }
+}
+
+* {
+  font-family: var(--font-sans);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  overscroll-behavior: none;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.icon {
+  margin-bottom: 20px;
+}
+
+.container {
+  padding: 40px 20px;
+  max-width: 500px;
+  text-align: center;
+  transition: opacity 0.4s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.title {
+  color: var(--primary);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.subhead {
+  color: var(--secondary);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.body {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.how-to {
+  margin: 40px 0;
+  text-align: left;
+}
+
+.separator {
+  background: var(--separator);
+  width: 100%;
+  height: 1px;
+  margin: 40px 0;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.step:last-child {
+  margin-bottom: 0;
+}
+
+.step-number {
+  font-size: 13px;
+  font-weight: 600;
+  height: 32px;
+  width: 32px;
+  background: var(--tertiary);
+  flex: 0 0 32px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.button {
+  font-size: 16px;
+  font-weight: 500;
+  background: var(--accent);
+  color: var(--background);
+  height: 48px;
+  padding: 0 80px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:active {
+  opacity: 1;
+}
+
+.shortcut {
+  color: var(--secondary);
+  background: var(--tertiary);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.footnote {
+  font-size: 12px;
+  color: var(--secondary);
+  line-height: 1.5;
+  max-width: 400px;
+  margin: 16px auto 0;
+}
