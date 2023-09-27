@@ -23,7 +23,7 @@ Mint is a session saver for Google Chrome. Save sessions for later, including wi
 
 ## Usage
 
-Once installed, click the extension icon and then click the "Save Session" button to save a session. Alterantively use the shortcut `Shift+Cmd+S` or `Shift+Ctrl+S` to save your current session at any time. To restore a saved session simply click on it from the extension popup.
+Once installed, click the extension icon and then click the "Save Session" button to save a session. Alternatively use the shortcut `Shift+Cmd+S` or `Shift+Ctrl+S` to save your current session at any time. To restore a saved session simply click on it from the extension popup.
 
 ## License
 
