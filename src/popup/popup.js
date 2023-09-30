@@ -307,7 +307,7 @@ async function openExternal (type) {
 
 function onDocumentKeydown (e) {
   try {
-    if (e.key === 'p' && e.shiftKey && (e.metaKey || e.ctrlKey)) {
+    if (e.key === 'u' && e.shiftKey && (e.metaKey || e.ctrlKey)) {
       const saveSessionButton = document.getElementById('new_workspace')
       saveSessionButton.click()
     }

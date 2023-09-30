@@ -24,8 +24,8 @@
   "commands": {
     "save_current_session": {
       "suggested_key": {
-        "default": "Ctrl+Shift+S",
-        "mac": "Command+Shift+S"
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
       },
       "description": "Save current session immediately"
     }
