@@ -27,10 +27,10 @@
     "message": "Buy Me a Coffee"
   },
   "ACCELERATOR_SAVE_SESSION": {
-    "message": "Ctrl+Shift+S"
+    "message": "Ctrl+Shift+U"
   },
   "ACCELERATOR_SAVE_SESSION_MAC": {
-    "message": "\u21E7\u2318S"
+    "message": "\u21E7\u2318U"
   },
   "ONBOARDING_TITLE": {
     "message": "Thanks for installing Mint"
