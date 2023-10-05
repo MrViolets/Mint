@@ -75,10 +75,6 @@ body {
 
 .item {
   position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,8 +87,12 @@ body {
 .item > .left-detail {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font-weight: 500;
+  min-width: 0;
+  flex: 1;
+  padding-left: 28px;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .nav-index > .left-detail,
@@ -100,13 +100,17 @@ body {
   pointer-events: none;
 }
 
-.label{
-  color: var(--primary);
-}
-
 .label {
   font-size: 13px;
-  margin-right: 32px;
+  color: var(--primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-shrink: 0;
+  margin-right: 16px;
 }
 
 .item-icon + .label {
@@ -122,11 +126,12 @@ body {
 }
 
 .switch {
-  position: relative;
   display: inline-block;
   width: 20px;
   height: 20px;
   margin-right: 8px;
+  position: absolute;
+  left: 0;
 }
 
 .switch input {
@@ -155,11 +160,11 @@ input:checked + .check {
   pointer-events: all;
   padding: 4px;
   border-radius: 999px;
-  display: none;
+  visibility: hidden;
 }
 
 .item:hover .remove {
-  display: block;
+  visibility: visible;
 }
 
 .remove:hover {
@@ -177,12 +182,4 @@ input:checked + .check {
 
 .accelerator {
   color: var(--secondary);
-}
-
-.left-detail .switch + .label {
-  padding-left: 0;
-}
-
-.left-detail .label {
-  padding-left: 28px;
 }
