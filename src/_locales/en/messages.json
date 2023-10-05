@@ -21,10 +21,10 @@
     "message": "Clear Saved Session after Restore"
   },
   "MENU_RATE": {
-    "message": "Rate Mint"
+    "message": "Give Feedback"
   },
   "MENU_DONATE": {
-    "message": "Buy Me a Coffee"
+    "message": "Support Mint"
   },
   "ACCELERATOR_SAVE_SESSION": {
     "message": "Ctrl+Shift+U"

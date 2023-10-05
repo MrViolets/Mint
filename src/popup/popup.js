@@ -12,36 +12,8 @@ async function init () {
   try {
     await insertStrings()
     await restorePreferences()
-    prepareAnimatedElements()
     registerListeners()
     await loadWorkspaces()
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-async function prepareAnimatedElements () {
-  try {
-    const animatedElements = document.querySelectorAll('.no-transition')
-
-    for (const el of animatedElements) {
-      const pseudoBefore = window.getComputedStyle(el, ':before').content
-      const pseudoAfter = window.getComputedStyle(el, ':after').content
-      const hasBeforeContent = pseudoBefore !== 'none' && pseudoBefore !== ''
-      const hasAfterContent = pseudoAfter !== 'none' && pseudoAfter !== ''
-
-      if (hasBeforeContent || hasAfterContent) {
-        el.addEventListener(
-          'transitionend',
-          function () {
-            el.classList.remove('no-transition')
-          },
-          { once: true }
-        )
-      }
-
-      el.classList.remove('no-transition')
-    }
   } catch (error) {
     console.error(error)
   }

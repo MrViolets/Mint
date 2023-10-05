@@ -31,25 +31,13 @@
   user-select: none;
 }
 
-.no-transition,
-.no-transition:before {
-  transition: none !important;
-}
-
 body {
   width: auto;
   overflow: auto;
   overscroll-behavior: none;
-  padding: 4px 0;
+  padding: 0;
   background-color: var(--background);
-  min-width: 300px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 16px 8px;
+  min-width: 250px;
 }
 
 .group {
@@ -67,7 +55,7 @@ body {
   height: 32px;
   width: 100%;
   display: block;
-  padding: 0 16px;
+  padding: 0 16px 0 44px;
   line-height: 32px;
   font-size: 13px;
   color: var(--secondary);
@@ -87,14 +75,10 @@ body {
 
 .item {
   position: relative;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
+  height: 28px;
   width: 100%;
   font-size: 13px;
   padding: 0 16px;
@@ -103,8 +87,12 @@ body {
 .item > .left-detail {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font-weight: 500;
+  min-width: 0;
+  flex: 1;
+  padding-left: 28px;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .nav-index > .left-detail,
@@ -112,24 +100,21 @@ body {
   pointer-events: none;
 }
 
-.label,
-.label-large {
-  color: var(--primary);
-}
-
 .label {
   font-size: 13px;
-  margin-right: 32px;
+  color: var(--primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-shrink: 0;
+  margin-right: 16px;
 }
 
 .item-icon + .label {
   margin-left: 12px;
-}
-
-.label-large {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
 }
 
 .nav-index:hover {
@@ -141,73 +126,45 @@ body {
 }
 
 .switch {
-  position: relative;
   display: inline-block;
-  cursor: pointer;
-  width: 26px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  position: absolute;
+  left: 0;
 }
 
 .switch input {
-  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.track {
+.check {
   position: absolute;
-  cursor: pointer;
+  height: 20px;
+  width: 20px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  transition: 0.4s;
-  border-radius: 16px;
-  background-color: transparent;
-  box-shadow: inset 0px 0px 0px 1px var(--secondary);
 }
 
-.track:before {
-  position: absolute;
-  content: "";
-  transition: 0.4s;
-  height: 8px;
-  width: 8px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--secondary);
-  border-radius: 99px;
-}
-
-input:checked + .track:before {
-  background-color: var(--background);
-  transform: translateX(8px);
-  height: 12px;
-  width: 12px;
-  left: 4px;
-  bottom: 2px;
-}
-
-input:checked + .track {
-  background-color: var(--accent);
-  box-shadow: none;
-}
-
-.external-link {
-  -webkit-mask-image: url(external.svg);
-  mask-image: url(external.svg);
-  background: var(--secondary);
-  height: 20px;
-  width: 20px;
+input:checked + .check {
+  -webkit-mask-image: url(check.svg);
+  mask-image: url(check.svg);
+  background: var(--primary);
 }
 
 .remove {
   pointer-events: all;
   padding: 4px;
   border-radius: 999px;
-  display: none;
+  visibility: hidden;
 }
 
 .item:hover .remove {
-  display: block;
+  visibility: visible;
 }
 
 .remove:hover {
@@ -225,29 +182,4 @@ input:checked + .track {
 
 .accelerator {
   color: var(--secondary);
-}
-
-.button-container {
-  padding: 0 16px;
-  margin: 8px 0;
-}
-
-button {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--background);
-  background: var(--accent);
-  border: none;
-  outline: none;
-  width: 100%;
-  height: 40px;
-  border-radius: 8px;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-button:active {
-  opacity: 1;
 }
