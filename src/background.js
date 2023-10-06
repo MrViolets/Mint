@@ -2,8 +2,6 @@
 
 /* global self, chrome */
 
-// Fix the command
-
 import * as ch from './chrome/promisify.js'
 import * as ws from './modules/session.js'
 import * as preferences from './modules/preferences.js'
