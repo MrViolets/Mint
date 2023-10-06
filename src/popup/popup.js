@@ -285,6 +285,8 @@ function getNewWorkspaceEl (session) {
     colorDot.classList.add('color-dot', session.data.color)
 
     const colorSelect = document.createElement('select')
+    colorSelect.classList.add('color-select')
+
     if (session.data.color) {
       colorDot.classList.add(session.data.color)
     } else {
