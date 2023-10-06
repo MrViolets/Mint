@@ -132,13 +132,15 @@ export class Session {
       })
 
       const windowsData = await Promise.all(windowsDataPromises)
+      const randomColor = colors[Math.floor(Math.random() * colors.length)]
 
       return {
         windowsData,
         numWindows: windowsData.length,
         numTabs: windowsData.reduce((acc, win) => acc + win.numTabs, 0),
         numGroups: windowsData.reduce((acc, win) => acc + win.numGroups, 0),
-        date: getCurrentDateTimeFormatted()
+        date: getCurrentDateTimeFormatted(),
+        color: randomColor
       }
     } catch (error) {
       console.error(error)
@@ -248,3 +250,5 @@ export function getCurrentDateTimeFormatted () {
 
   return `${year}-${month}-${day} ${hour}:${minutes}`
 }
+
+export const colors = ['grey', 'blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange']
