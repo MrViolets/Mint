@@ -90,6 +90,7 @@ function registerListeners () {
     onAll('input[type="checkbox"]', 'change', onCheckBoxChanged)
     onAll('div.nav-index', 'click', onActionClicked)
     on('workspace_list', 'click', onWorkspaceClicked)
+    on('workspace_list', 'change', onWorkspacesChanged)
   } catch (error) {
     console.error(error)
   }
@@ -195,6 +196,32 @@ async function onWorkspaceClicked (e) {
   }
 }
 
+async function onWorkspacesChanged(e) {
+  if (e.target.classList.contains('color-select')) {
+    const parent = e.target.closest('div[data-id]');
+    if (!parent) return;
+
+    const sessionId = parent.dataset.id;
+    let savedSessions = await ch.storageLocalGet({ sessions: [] });
+    let sessionToUpdate = savedSessions.sessions.find(session => session.id === sessionId);
+    if (!sessionToUpdate) return;
+
+    const newColor = e.target.value
+    sessionToUpdate.data.color = newColor;
+
+    await ch.storageLocalSet({ sessions: savedSessions.sessions });
+
+    const dot = parent.querySelector('.color-dot');
+    if (dot) {
+      for (const color of ws.colors) {
+        dot.classList.remove(color)
+      }
+
+      dot.classList.add(newColor)
+    }
+  }
+}
+
 async function deleteSession (el) {
   try {
     const sessionToRemove = el.dataset.id
@@ -233,6 +260,25 @@ function getNewWorkspaceEl (session) {
     const rightDetail = document.createElement('div')
     rightDetail.classList.add('right-detail')
 
+    const colorDotContainer = document.createElement('div')
+    colorDotContainer.classList.add('color-dot-container')
+
+    const colorDot = document.createElement('div')
+    colorDot.classList.add('color-dot', session.data.color)
+
+    const colorSelect = document.createElement('select')
+    colorSelect.classList.add('color-select')
+
+    for (const color of ws.colors) {
+      const capitalizedOption = color.charAt(0).toUpperCase() + color.slice(1)
+      const optionElement = document.createElement('option')
+      optionElement.value = color
+      optionElement.innerText = capitalizedOption
+      colorSelect.appendChild(optionElement)
+    }
+
+    colorSelect.value = session.data.color
+
     const removeButtonContainer = document.createElement('div')
     removeButtonContainer.classList.add('remove')
 
@@ -244,6 +290,9 @@ function getNewWorkspaceEl (session) {
     label.innerText = session.title
 
     removeButtonContainer.appendChild(removeButton)
+    colorDotContainer.appendChild(colorDot)
+    colorDotContainer.appendChild(colorSelect)
+    leftDetail.appendChild(colorDotContainer)
     leftDetail.appendChild(label)
     rightDetail.appendChild(removeButtonContainer)
     div.appendChild(leftDetail)
