@@ -12,13 +12,13 @@
     "message": "Save Session"
   },
   "MENU_CLOSE_WINDOWS_SAVE": {
-    "message": "Close Windows on Save"
+    "message": "Close Windows On Save"
   },
   "MENU_CLOSE_WINDOWS_RESTORE": {
     "message": "Close Windows Before Restore"
   },
   "MENU_SESSION_EXPIRE": {
-    "message": "Clear Saved Session after Restore"
+    "message": "Clear Saved Session After Restore"
   },
   "MENU_RATE": {
     "message": "Give Feedback"
