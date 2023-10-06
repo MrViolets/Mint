@@ -122,7 +122,7 @@ async function onNewSessionButtonClicked () {
     const tabStr = `${numTabs} Tab${numTabs !== 1 ? 's' : ''}`
     const groupStr =
       numGroups > 0
-        ? `, ${numGroups} Tab group${numGroups !== 1 ? 's' : ''}`
+        ? `, ${numGroups} Tab Group${numGroups !== 1 ? 's' : ''}`
         : ''
 
     const placeHolderTitle = `${windowStr}${tabStr}${groupStr}`
