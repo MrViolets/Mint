@@ -13,7 +13,7 @@ async function init () {
     await insertStrings()
     await restorePreferences()
     registerListeners()
-    await loadWorkspaces()
+    await renderSessions()
   } catch (error) {
     console.error(error)
   }
@@ -38,9 +38,13 @@ async function insertStrings () {
     if (accelerators) {
       for (const a of accelerators) {
         if (platformInfo.os === 'mac') {
-          a.innerText = chrome.i18n.getMessage(`ACCELERATOR_${a.dataset.accelerator}_MAC`)
+          a.innerText = chrome.i18n.getMessage(
+            `ACCELERATOR_${a.dataset.accelerator}_MAC`
+          )
         } else {
-          a.innerText = chrome.i18n.getMessage(`ACCELERATOR_${a.dataset.accelerator}`)
+          a.innerText = chrome.i18n.getMessage(
+            `ACCELERATOR_${a.dataset.accelerator}`
+          )
         }
       }
     }
@@ -53,7 +57,9 @@ async function restorePreferences () {
   try {
     const userPreferences = await preferences.get()
 
-    for (const [preferenceName, preferenceObj] of Object.entries(userPreferences)) {
+    for (const [preferenceName, preferenceObj] of Object.entries(
+      userPreferences
+    )) {
       const el = document.getElementById(preferenceName)
 
       if (preferenceObj.type === 'radio') {
@@ -114,7 +120,10 @@ async function onNewSessionButtonClicked () {
 
     const windowStr = numWindows > 1 ? `${numWindows} Windows, ` : ''
     const tabStr = `${numTabs} Tab${numTabs !== 1 ? 's' : ''}`
-    const groupStr = numGroups > 0 ? `, ${numGroups} Tab group${numGroups !== 1 ? 's' : ''}` : ''
+    const groupStr =
+      numGroups > 0
+        ? `, ${numGroups} Tab group${numGroups !== 1 ? 's' : ''}`
+        : ''
 
     const placeHolderTitle = `${windowStr}${tabStr}${groupStr}`
 
@@ -177,14 +186,19 @@ async function updateUserPreference (e, valueKey, backupValue) {
 async function onWorkspaceClicked (e) {
   try {
     if (e.target.dataset.id) {
-      await ch.sendMessage({ msg: 'restore_workspace', workspaceId: e.target.dataset.id })
+      await ch.sendMessage({
+        msg: 'restore_workspace',
+        workspaceId: e.target.dataset.id
+      })
 
       const userPreferences = await preferences.get()
       if (userPreferences.clear_sessions_after_use.value === true) {
         await deleteSession(e.target)
       }
     } else if (e.target.classList.contains('remove')) {
-      if (window.confirm('Do you really want to delete this session?') === true) {
+      if (
+        window.confirm('Do you really want to delete this session?') === true
+      ) {
         const parent = e.target.closest('div[data-id]')
         if (!parent) return
 
@@ -196,22 +210,24 @@ async function onWorkspaceClicked (e) {
   }
 }
 
-async function onWorkspacesChanged(e) {
+async function onWorkspacesChanged (e) {
   if (e.target.classList.contains('color-select')) {
-    const parent = e.target.closest('div[data-id]');
-    if (!parent) return;
+    const parent = e.target.closest('div[data-id]')
+    if (!parent) return
 
-    const sessionId = parent.dataset.id;
-    let savedSessions = await ch.storageLocalGet({ sessions: [] });
-    let sessionToUpdate = savedSessions.sessions.find(session => session.id === sessionId);
-    if (!sessionToUpdate) return;
+    const sessionId = parent.dataset.id
+    const savedSessions = await ch.storageLocalGet({ sessions: [] })
+    const sessionToUpdate = savedSessions.sessions.find(
+      (session) => session.id === sessionId
+    )
+    if (!sessionToUpdate) return
 
     const newColor = e.target.value
-    sessionToUpdate.data.color = newColor;
+    sessionToUpdate.data.color = newColor
 
-    await ch.storageLocalSet({ sessions: savedSessions.sessions });
+    await ch.storageLocalSet({ sessions: savedSessions.sessions })
 
-    const dot = parent.querySelector('.color-dot');
+    const dot = parent.querySelector('.color-dot')
     if (dot) {
       for (const color of ws.colors) {
         dot.classList.remove(color)
@@ -227,7 +243,9 @@ async function deleteSession (el) {
     const sessionToRemove = el.dataset.id
 
     const savedSessions = await ch.storageLocalGet({ sessions: [] })
-    savedSessions.sessions = savedSessions.sessions.filter((session) => session.id !== sessionToRemove)
+    savedSessions.sessions = savedSessions.sessions.filter(
+      (session) => session.id !== sessionToRemove
+    )
     await ch.storageLocalSet({ sessions: savedSessions.sessions })
     el.remove()
   } catch (error) {
@@ -235,7 +253,7 @@ async function deleteSession (el) {
   }
 }
 
-async function loadWorkspaces () {
+async function renderSessions () {
   try {
     const parentEl = document.getElementById('workspace_list')
     const savedSessions = await ch.storageLocalGet({ sessions: [] })
@@ -267,7 +285,11 @@ function getNewWorkspaceEl (session) {
     colorDot.classList.add('color-dot', session.data.color)
 
     const colorSelect = document.createElement('select')
-    colorSelect.classList.add('color-select')
+    if (session.data.color) {
+      colorDot.classList.add(session.data.color)
+    } else {
+      colorDot.classList.add('grey')
+    }
 
     for (const color of ws.colors) {
       const capitalizedOption = color.charAt(0).toUpperCase() + color.slice(1)
@@ -277,7 +299,7 @@ function getNewWorkspaceEl (session) {
       colorSelect.appendChild(optionElement)
     }
 
-    colorSelect.value = session.data.color
+    colorSelect.value = session.data.color || 'grey'
 
     const removeButtonContainer = document.createElement('div')
     removeButtonContainer.classList.add('remove')

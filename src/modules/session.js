@@ -132,7 +132,7 @@ export class Session {
       })
 
       const windowsData = await Promise.all(windowsDataPromises)
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)]
 
       return {
         windowsData,
