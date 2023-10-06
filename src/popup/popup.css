@@ -15,10 +15,10 @@
     color-scheme: dark;
     --accent: #57E07F;
     --primary: #E3E3E3;
-    --secondary: #969696;
-    --tertiary: #38393B;
-    --separator: #3F4042;
-    --background: #292A2D;
+    --secondary: #C7C7C7;
+    --tertiary: #383838;
+    --separator: #474747;
+    --background: #1F1F1F;
     --active: rgba(255, 255, 255, 0.1);
   }
 }
