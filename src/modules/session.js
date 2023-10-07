@@ -75,6 +75,7 @@ export class Session {
 
       const windowsDataPromises = windows.map(async (win) => {
         const groupsInWindow = await ch.tabGroupsQuery({ windowId: win.id })
+        const displayContainingWindow = getDisplayContainingWindow(screenInfo, win)
 
         const groupDetails = {}
         groupsInWindow.forEach((group) => {
@@ -107,7 +108,8 @@ export class Session {
             groupColor: groupData.color || null,
             groupCollapsed: groupData.collapsed || false,
             active: tab.id === win.activeTabId,
-            zoomFactor
+            zoomFactor,
+            displayId: displayContainingWindow.id
           }
         })
 
@@ -154,10 +156,11 @@ export class Session {
     try {
       for (const windowData of data.windowsData) {
         const screenInfo = await ch.systemDisplayGetInfo()
-        const left = windowData.position.relativeX * screenInfo[0].bounds.width
-        const top = windowData.position.relativeY * screenInfo[0].bounds.height
-        const width = windowData.size.relativeWidth * screenInfo[0].bounds.width
-        const height = windowData.size.relativeHeight * screenInfo[0].bounds.height
+        const targetDisplay = screenInfo.find(display => display.id === windowData.displayId) || screenInfo[0]
+        const left = windowData.position.relativeX * targetDisplay.bounds.width
+        const top = windowData.position.relativeY * targetDisplay.bounds.height
+        const width = windowData.size.relativeWidth * targetDisplay.bounds.width
+        const height = windowData.size.relativeHeight * targetDisplay.bounds.height
 
         const createWindowConfig = {
           left: Math.round(left),
@@ -252,3 +255,34 @@ export function getCurrentDateTimeFormatted () {
 }
 
 export const colors = ['grey', 'blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange']
+
+function getDisplayContainingWindow (connectedDisplays, targetWindow) {
+  const targetX = targetWindow.left
+  const targetY = targetWindow.top
+
+  let selectedDisplay = null
+  let maxIntersectionArea = 0
+
+  for (const display of connectedDisplays) {
+    const displayLeft = display.bounds.left
+    const displayRight = display.bounds.left + display.bounds.width
+    const displayTop = display.bounds.top
+    const displayBottom = display.bounds.top + display.bounds.height
+
+    const intersectionLeft = Math.max(targetX, displayLeft)
+    const intersectionRight = Math.min(targetX + targetWindow.width, displayRight)
+    const intersectionTop = Math.max(targetY, displayTop)
+    const intersectionBottom = Math.min(targetY + targetWindow.height, displayBottom)
+    const intersectionWidth = intersectionRight - intersectionLeft
+    const intersectionHeight = intersectionBottom - intersectionTop
+
+    const intersectionArea = Math.max(0, intersectionWidth) * Math.max(0, intersectionHeight)
+
+    if (intersectionArea > maxIntersectionArea) {
+      selectedDisplay = display
+      maxIntersectionArea = intersectionArea
+    }
+  }
+
+  return selectedDisplay
+}
