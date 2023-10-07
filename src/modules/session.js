@@ -75,7 +75,7 @@ export class Session {
 
       const windowsDataPromises = windows.map(async (win) => {
         const groupsInWindow = await ch.tabGroupsQuery({ windowId: win.id })
-        const displayContainingWindow = getDisplayContainingWindow(screenInfo, win);
+        const displayContainingWindow = getDisplayContainingWindow(screenInfo, win)
 
         const groupDetails = {}
         groupsInWindow.forEach((group) => {
@@ -156,7 +156,7 @@ export class Session {
     try {
       for (const windowData of data.windowsData) {
         const screenInfo = await ch.systemDisplayGetInfo()
-        const targetDisplay = screenInfo.find(display => display.id === windowData.displayId) || screenInfo[0];
+        const targetDisplay = screenInfo.find(display => display.id === windowData.displayId) || screenInfo[0]
         const left = windowData.position.relativeX * targetDisplay.bounds.width
         const top = windowData.position.relativeY * targetDisplay.bounds.height
         const width = windowData.size.relativeWidth * targetDisplay.bounds.width
@@ -257,22 +257,18 @@ export function getCurrentDateTimeFormatted () {
 export const colors = ['grey', 'blue', 'red', 'yellow', 'green', 'pink', 'purple', 'cyan', 'orange']
 
 function getDisplayContainingWindow (connectedDisplays, targetWindow) {
-  // Get the coordinates of the top-left corner of the target window
   const targetX = targetWindow.left
   const targetY = targetWindow.top
 
   let selectedDisplay = null
   let maxIntersectionArea = 0
 
-  // Iterate through each display to find the one containing most of the window
   for (const display of connectedDisplays) {
-    // Get the coordinates of the left, right, top, and bottom edges of the display
     const displayLeft = display.bounds.left
     const displayRight = display.bounds.left + display.bounds.width
     const displayTop = display.bounds.top
     const displayBottom = display.bounds.top + display.bounds.height
 
-    // Calculate the intersection area between the target window and the current display
     const intersectionLeft = Math.max(targetX, displayLeft)
     const intersectionRight = Math.min(targetX + targetWindow.width, displayRight)
     const intersectionTop = Math.max(targetY, displayTop)
@@ -280,16 +276,13 @@ function getDisplayContainingWindow (connectedDisplays, targetWindow) {
     const intersectionWidth = intersectionRight - intersectionLeft
     const intersectionHeight = intersectionBottom - intersectionTop
 
-    // Ensure that the intersection area is non-negative
     const intersectionArea = Math.max(0, intersectionWidth) * Math.max(0, intersectionHeight)
 
-    // Update selectedDisplay if the current display contains more of the window
     if (intersectionArea > maxIntersectionArea) {
       selectedDisplay = display
       maxIntersectionArea = intersectionArea
     }
   }
 
-  // Return the display that contains most of the window
   return selectedDisplay
 }
