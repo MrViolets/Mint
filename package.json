@@ -1,7 +1,7 @@
 {
   "name": "mint",
   "productName": "Mint",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Sylvester Wilmott",
   "license": "GPL-3.0",
   "devDependencies": {
