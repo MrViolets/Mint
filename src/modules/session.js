@@ -168,8 +168,14 @@ export class Session {
 
         const isSameSize = (display, windowData) => display.bounds.width === windowData.displayInfo.width && display.bounds.height === windowData.displayInfo.height
         const isSameType = (display, windowData) => display.isInternal === windowData.displayInfo.isInternal && display.isPrimary === windowData.displayInfo.isPrimary
-        const hasMatchingProperties = (display, windowData) => display.id === windowData.displayInfo.id || display.bounds.top === windowData.displayInfo.top || display.bounds.left === windowData.displayInfo.left || display.rotation === windowData.displayInfo.rotation
-        const targetDisplay = screenInfo.find((display) => isSameSize(display, windowData) && isSameType(display, windowData) && hasMatchingProperties(display, windowData)) || screenInfo[0]
+        const isSameOrientation = (display, windowData) => display.rotation === windowData.displayInfo.rotation
+        const hasMatchingProperties = (display, windowData) => display.id === windowData.displayInfo.id || display.bounds.top === windowData.displayInfo.top || display.bounds.left === windowData.displayInfo.left
+        const targetDisplay = screenInfo.find((display) =>
+          isSameSize(display, windowData) &&
+          isSameType(display, windowData) &&
+          isSameOrientation(display, windowData) &&
+          hasMatchingProperties(display, windowData)) ||
+          screenInfo[0]
 
         const left = Math.max(
           targetDisplay.workArea.left,
