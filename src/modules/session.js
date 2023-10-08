@@ -86,10 +86,10 @@ export class Session {
           }
         })
 
-        const relativeX = win.left / screenInfo[0].bounds.width
-        const relativeY = win.top / screenInfo[0].bounds.height
-        const relativeWidth = win.width / screenInfo[0].bounds.width
-        const relativeHeight = win.height / screenInfo[0].bounds.height
+        const relativeX = (win.left - displayContainingWindow.workArea.left) / displayContainingWindow.workArea.width
+        const relativeY = (win.top - displayContainingWindow.workArea.top) / displayContainingWindow.workArea.height
+        const relativeWidth = win.width / displayContainingWindow.workArea.width
+        const relativeHeight = win.height / displayContainingWindow.workArea.height
 
         const tabsDataPromises = win.tabs.map(async (tab) => {
           const tabUrl = tab.url || tab.pendingUrl
@@ -108,8 +108,7 @@ export class Session {
             groupColor: groupData.color || null,
             groupCollapsed: groupData.collapsed || false,
             active: tab.id === win.activeTabId,
-            zoomFactor,
-            displayId: displayContainingWindow.id
+            zoomFactor
           }
         })
 
@@ -129,7 +128,17 @@ export class Session {
             height: win.height
           },
           numTabs: tabsData.length,
-          numGroups: groupsInWindow.length
+          numGroups: groupsInWindow.length,
+          displayInfo: {
+            top: displayContainingWindow.bounds.top,
+            left: displayContainingWindow.bounds.left,
+            width: displayContainingWindow.bounds.width,
+            height: displayContainingWindow.bounds.height,
+            isPrimary: displayContainingWindow.isPrimary,
+            isInternal: displayContainingWindow.isInternal,
+            rotation: displayContainingWindow.rotation,
+            id: displayContainingWindow.id
+          }
         }
       })
 
@@ -156,17 +165,34 @@ export class Session {
     try {
       for (const windowData of data.windowsData) {
         const screenInfo = await ch.systemDisplayGetInfo()
-        const targetDisplay = screenInfo.find(display => display.id === windowData.displayId) || screenInfo[0]
-        const left = windowData.position.relativeX * targetDisplay.bounds.width
-        const top = windowData.position.relativeY * targetDisplay.bounds.height
-        const width = windowData.size.relativeWidth * targetDisplay.bounds.width
-        const height = windowData.size.relativeHeight * targetDisplay.bounds.height
+
+        const isSameSize = (display, windowData) => display.bounds.width === windowData.displayInfo.width && display.bounds.height === windowData.displayInfo.height
+        const isSameType = (display, windowData) => display.isInternal === windowData.displayInfo.isInternal && display.isPrimary === windowData.displayInfo.isPrimary
+        const isSameOrientation = (display, windowData) => display.rotation === windowData.displayInfo.rotation
+        const hasMatchingProperties = (display, windowData) => display.id === windowData.displayInfo.id || display.bounds.top === windowData.displayInfo.top || display.bounds.left === windowData.displayInfo.left
+        const targetDisplay = screenInfo.find((display) =>
+          isSameSize(display, windowData) &&
+          isSameType(display, windowData) &&
+          isSameOrientation(display, windowData) &&
+          hasMatchingProperties(display, windowData)) ||
+          screenInfo[0]
+
+        const left = Math.max(
+          targetDisplay.workArea.left,
+          Math.round(windowData.position.relativeX * targetDisplay.workArea.width) + targetDisplay.workArea.left
+        )
+        const top = Math.max(
+          targetDisplay.workArea.top,
+          Math.round(windowData.position.relativeY * targetDisplay.workArea.height) + targetDisplay.workArea.top
+        )
+        const width = Math.round(windowData.size.relativeWidth * targetDisplay.workArea.width)
+        const height = Math.round(windowData.size.relativeHeight * targetDisplay.workArea.height)
 
         const createWindowConfig = {
-          left: Math.round(left),
-          top: Math.round(top),
-          width: Math.round(width),
-          height: Math.round(height),
+          left,
+          top,
+          width,
+          height,
           type: windowData.type
         }
 
