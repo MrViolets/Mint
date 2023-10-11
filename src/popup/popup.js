@@ -91,6 +91,8 @@ function registerListeners () {
       }
     }
 
+    chrome.storage.onChanged.addListener(onStorageChanged)
+
     on(document, 'keydown', onDocumentKeydown)
     on('new_workspace', 'click', onNewSessionButtonClicked)
     onAll('input[type="checkbox"]', 'change', onCheckBoxChanged)
@@ -258,6 +260,8 @@ async function renderSessions () {
     const parentEl = document.getElementById('workspace_list')
     const savedSessions = await ch.storageLocalGet({ sessions: [] })
 
+    parentEl.innerHTML = ''
+
     for (const session of savedSessions.sessions) {
       parentEl.appendChild(getNewWorkspaceEl(session))
     }
@@ -358,5 +362,16 @@ function onDocumentKeydown (e) {
     }
   } catch (error) {
     console.error(error)
+  }
+}
+
+function onStorageChanged (changes) {
+  const { sessions } = changes
+
+  if (sessions && Array.isArray(sessions.newValue) && sessions.newValue.length > 0) {
+    if (!sessions.oldValue ||
+       (Array.isArray(sessions.oldValue) && sessions.newValue.length > sessions.oldValue.length)) {
+      renderSessions()
+    }
   }
 }
