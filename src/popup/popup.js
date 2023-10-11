@@ -365,11 +365,11 @@ function onDocumentKeydown (e) {
   }
 }
 
-function onStorageChanged(changes) {
+function onStorageChanged (changes) {
   const { sessions } = changes
-  
+
   if (sessions && Array.isArray(sessions.newValue) && sessions.newValue.length > 0) {
-    if (!sessions.oldValue || 
+    if (!sessions.oldValue ||
        (Array.isArray(sessions.oldValue) && sessions.newValue.length > sessions.oldValue.length)) {
       renderSessions()
     }
