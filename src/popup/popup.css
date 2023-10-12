@@ -78,6 +78,7 @@ body {
   line-height: 32px;
   font-size: 13px;
   color: var(--secondary);
+  font-weight: 500;
 }
 
 .group:not(:last-child)::after {
