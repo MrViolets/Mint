@@ -77,8 +77,7 @@ body {
   padding: 0 16px 0 44px;
   line-height: 32px;
   font-size: 13px;
-  font-weight: 700;
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .group:not(:last-child)::after {
