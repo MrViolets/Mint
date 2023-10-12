@@ -6,6 +6,7 @@
   --secondary: #474747;
   --tertiary: #ededed;
   --separator: #ebebeb;
+  --disabled: #C0C0C0;
   --background: #ffffff;
   --active: rgba(0, 0, 0, 0.1);
   --dot-grey: #606367;
@@ -27,6 +28,7 @@
     --secondary: #C6C6C6;
     --tertiary: #383838;
     --separator: #474747;
+    --disabled: #565656;
     --background: #1f1f1f;
     --active: rgba(255, 255, 255, 0.1);
     --dot-grey: #DADCE0;
@@ -77,7 +79,7 @@ body {
   padding: 0 16px 0 44px;
   line-height: 32px;
   font-size: 13px;
-  color: var(--secondary);
+  color: var(--disabled);
   font-weight: 500;
 }
 
