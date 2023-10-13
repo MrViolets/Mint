@@ -51,6 +51,10 @@
   user-select: none;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   width: auto;
   overflow: auto;
