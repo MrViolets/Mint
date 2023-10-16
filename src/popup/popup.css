@@ -84,7 +84,7 @@ body {
   line-height: 32px;
   font-size: 13px;
   color: var(--disabled);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .group:not(:last-child)::after {
@@ -152,10 +152,6 @@ body {
   background: var(--tertiary);
 }
 
-.right-detail {
-  margin-left: 16px;
-}
-
 .switch {
   display: inline-block;
   width: 20px;
@@ -192,12 +188,15 @@ input:checked + .check {
   padding: 2px;
   border-radius: 999px;
   visibility: hidden;
+  display: none;
   position: relative;
   right: -1px;
+  margin-left: 8px;
 }
 
 .item:hover .remove {
   visibility: visible;
+  display: block;
 }
 
 .remove:hover {
