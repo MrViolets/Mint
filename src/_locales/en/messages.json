@@ -18,7 +18,7 @@
     "message": "Close Windows Before Restore"
   },
   "MENU_SESSION_EXPIRE": {
-    "message": "Clear Saved Session After Restore"
+    "message": "Delete Saved Session After Restore"
   },
   "MENU_RATE": {
     "message": "Give Feedback"
